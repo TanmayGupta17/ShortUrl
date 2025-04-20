@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short URLs</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Short URL Generator</h1>
+
+    <!-- Form to submit a new URL -->
+    <form method="POST" action="/url">
+        <label for="url">Enter URL:</label>
+        <input type="text" id="url" name="url" placeholder="www.example.com" required>
+        <button type="submit">Generate Short URL</button>
+    </form>
+
+    <h2>All Short URLs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Short URL</th>
+                <th>Original URL</th>
+                <th>Clicks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (urls.length === 0) { %>
+                <tr>
+                    <td colspan="3">No URLs found</td>
+                </tr>
+            <% } else { %>
+                <% urls.forEach(url => { %>
+                    <tr>
+                        <td><a href="/<%= url.shortId %>" target="_blank"><%= url.shortId %></a></td>
+                        <td><%= url.redirectUrl %></td>
+                        <td><%= url.VisitHistory.length %></td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
